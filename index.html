@@ -3,258 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Franchise Pro — Юлія Костюченко (ФТБ-9)</title>
+    <title>Franchise Universe — Юлія Костюченко (ФТБ-9)</title>
     <style>
         :root {
             --primary: #2563eb;
-            --secondary: #1e293b;
+            --secondary: #0f172a;
             --accent: #10b981;
-            --light: #f8fafc;
+            --light: #f1f5f9;
             --white: #ffffff;
-            --warning: #f59e0b;
+            --text-main: #334155;
         }
 
         body {
-            font-family: -apple-system, system-ui, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             margin: 0;
             background-color: var(--light);
-            color: var(--secondary);
-            line-height: 1.6;
+            color: var(--text-main);
+            line-height: 1.7;
         }
 
+        /* Навігація */
         nav {
             background: var(--secondary);
-            padding: 10px 0;
+            padding: 12px 0;
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 2000;
             display: flex;
             justify-content: center;
-            gap: 5px;
+            gap: 8px;
         }
 
         nav button {
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2);
             color: white;
-            padding: 8px 10px;
-            border-radius: 6px;
-            font-size: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
             cursor: pointer;
+            transition: 0.3s ease;
         }
 
-        nav button.active { background: var(--primary); border-color: var(--primary); font-weight: bold; }
+        nav button.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
 
-        .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
 
+        /* Секції */
         .content-section {
             display: none;
             background: var(--white);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-
-        .content-section.active { display: block !important; animation: fadeIn 0.4s ease; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .hero {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white;
-            padding: 40px 20px;
-            border-radius: 12px;
-            text-align: center;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             margin-bottom: 25px;
         }
 
-        .calc-box {
-            background: #f1f5f9;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+        .content-section.active {
+            display: block !important;
+            animation: slideUp 0.5s ease;
         }
 
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
+        /* Шапка */
+        .header-hero {
+            background: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%);
+            color: white;
+            padding: 50px 20px;
+            border-radius: 20px;
             text-align: center;
-            border-bottom: 4px solid var(--primary);
+            margin-bottom: 30px;
         }
 
-        .stat-card.profit { border-color: var(--accent); }
-        .stat-card.payback { border-color: var(--warning); }
+        .author-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        .big-num { font-size: 28px; font-weight: 800; display: block; margin: 10px 0; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
-        table th, table td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; }
-        table th { background: #f8fafc; }
+        /* Калькулятор та Віджети */
+        .card-gray {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+            margin: 20px 0;
+        }
 
-        footer { text-align: center; padding: 40px; background: var(--secondary); color: white; }
+        .result-main {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent);
+        }
 
-        @media (max-width: 500px) { nav button { padding: 6px 4px; font-size: 10px; } }
+        .big-price {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--primary);
+            display: block;
+        }
+
+        /* Прогрес-бар */
+        .progress-container {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Таблиця */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
+        .label-cell { color: #64748b; font-weight: 500; }
+        .val-cell { text-align: right; font-weight: bold; color: var(--secondary); }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--secondary);
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 500px) {
+            nav button { padding: 8px 6px; font-size: 10px; }
+            .content-section { padding: 20px; }
+        }
     </style>
 </head>
 <body>
 
 <nav>
-    <button onclick="showPage('main')" id="btn-main" class="active">Головна</button>
-    <button onclick="showPage('calc')" id="btn-calc">Фінансовий план</button>
-    <button onclick="showPage('details')" id="id-details">Аналітика</button>
-    <button onclick="showPage('author')" id="btn-author">Автор</button>
+    <button onclick="changePage('home')" id="btn-home" class="active">Концепція</button>
+    <button onclick="changePage('market')" id="btn-market">Аналіз ринку</button>
+    <button onclick="changePage('fin')" id="btn-fin">Фінансовий план</button>
+    <button onclick="changePage('steps')" id="btn-steps">Етапи</button>
+    <button onclick="changePage('dev')" id="btn-dev">Про автора</button>
 </nav>
 
 <div class="container">
 
-    <section id="main" class="content-section active">
-        <div class="hero">
-            <h1>Franchise Finance Pro</h1>
-            <p>Юлія Костюченко | Група ФТБ-9</p>
+    <section id="home" class="content-section active">
+        <div class="header-hero">
+            <span class="author-badge">Юлія Костюченко • ФТБ-9</span>
+            <h1>Franchise Universe</h1>
+            <p>Масштабування бізнесу через інноваційні моделі партнерства</p>
         </div>
-        <h2>Професійний розрахунок бізнесу</h2>
-        <p>Ця платформа дозволяє провести глибокий аналіз інвестицій. Ми використовуємо динамічні формули для прогнозування прибутку та термінів повернення капіталу.</p>
-        <div class="calc-box">
-            <h3>Чому це важливо?</h3>
-            <p>90% бізнесів закриваються через неправильне планування витрат. Наш калькулятор враховує не тільки старт, а й операційні витрати перших місяців.</p>
+        
+        <h2>Стратегія розвитку</h2>
+        <p>Franchise Universe — це мультибрендова платформа, що об'єднує мережі ритейлу та сервісних центрів. Ми розробили унікальний алгоритм підтримки, який дозволяє відкрити бізнес навіть без профільної освіти.</p>
+        
+        <div class="card-gray">
+            <h3>Чому ми?</h3>
+            <p>За останні два роки попит на готові франшизи в Україні зріс на 40%. Ми пропонуємо не просто вивіску, а автоматизовану систему управління складом, персоналом та маркетингом.</p>
+        </div>
+        
+        <h3>Наші ключові переваги:</h3>
+        <ul>
+            <li><strong>Екосистема:</strong> Доступ до бази з 500+ перевірених постачальників.</li>
+            <li><strong>IT-рішення:</strong> Власна мобільна програма лояльності для ваших клієнтів.</li>
+            <li><strong>Ризики:</strong> Ми гарантуємо викуп обладнання у разі закриття через 12 місяців (за умовами договору).</li>
+        </ul>
+    </section>
+
+    <section id="market" class="content-section">
+        <h2>Аналітичний огляд ринку 2026</h2>
+        <p>Перед інвестуванням важливо розуміти поточні тренди. Наш аналітичний відділ підготував зріз найбільш рентабельних ніш:</p>
+        
+        <div class="card-gray">
+            <h4>📈 Тренди споживання</h4>
+            <p>Сьогодні клієнт обирає швидкість та якість обслуговування. Саме тому наші формати "біля дому" показують найвищий рівень повернення покупців.</p>
+        </div>
+
+        <div class="step-item">
+            <div class="step-num">1</div>
+            <div><strong>Ритейл:</strong> Стабільний попит на продукти харчування та побутову хімію (рентабельність 25%).</div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">2</div>
+            <div><strong>Food-сервіс:</strong> Кава та швидкі перекуси залишаються лідерами за маржинальністю (до 300% на напоях).</div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">3</div>
+            <div><strong>Service:</strong> Точки видачі та сервісні центри електроніки ростуть завдяки онлайн-торгівлі.</div>
         </div>
     </section>
 
-    <section id="calc" class="content-section">
-        <h2>Фінансовий калькулятор</h2>
-        <div class="calc-box">
-            <div style="margin-bottom:15px">
-                <label><b>Оберіть модель бізнесу:</b></label>
-                <select id="fType" onchange="fullCalc()" style="width:100%; padding:10px; border-radius:8px;">
-                    <option value="coffee" data-fee="5000" data-equip="7000" data-rev="4000">Кав'ярня self-service</option>
-                    <option value="shop" data-fee="12000" data-equip="20000" data-rev="12000">Магазин продуктів</option>
-                    <option value="service" data-fee="8000" data-equip="12000" data-rev="7000">Сервісний центр</option>
-                </select>
-            </div>
-            <div>
-                <label><b>Локація (коефіцієнт витрат):</b></label>
-                <select id="fCity" onchange="fullCalc()" style="width:100%; padding:10px; border-radius:8px;">
-                    <option value="1.5">Мегаполіс (Київ, Львів)</option>
-                    <option value="1.0">Районний центр</option>
-                </select>
+    <section id="fin" class="content-section">
+        <h2>Розширений фінансовий калькулятор</h2>
+        <p>Налаштуйте параметри для отримання детальної фінансової моделі:</p>
+        
+        <div class="card-gray">
+            <label><b>Модель бізнесу:</b></label>
+            <select id="mType" onchange="runMegaCalc()" style="width:100%; padding:12px; margin-bottom:20px; border-radius:10px;">
+                <option value="store" data-start="15000" data-rev="10000" data-margin="0.35">Супермаркет "Universe Mini" ($15k інвест)</option>
+                <option value="coffee" data-start="6000" data-rev="5000" data-margin="0.60">Coffee Point (Smart формат) ($6k інвест)</option>
+                <option value="repair" data-start="9000" data-rev="7500" data-margin="0.45">Сервіс-хаб електроніки ($9k інвест)</option>
+            </select>
+
+            <label><b>Місто та складність локації:</b></label>
+            <select id="mCity" onchange="runMegaCalc()" style="width:100%; padding:12px; border-radius:10px;">
+                <option value="1.6">Київ (центр, ТРЦ)</option>
+                <option value="1.3">Обласний центр (спальний район)</option>
+                <option value="1.0">Місто до 100 тис. населення</option>
+            </select>
+        </div>
+
+        <div class="result-main">
+            <span>Необхідний капітал:</span>
+            <span class="big-price" id="outStart">$0</span>
+            
+            <div style="margin-top: 20px; text-align: left;">
+                <label><b>Прогноз окупності: <span id="outMonths">0</span> міс.</b></label>
+                <div class="progress-container">
+                    <div class="progress-fill" id="pBar"></div>
+                </div>
             </div>
         </div>
 
-        <div class="grid-3">
-            <div class="stat-card">
-                <span>Стартові інвестиції</span>
-                <span class="big-num" id="resStart" style="color: var(--primary);">$0</span>
-            </div>
-            <div class="stat-card profit">
-                <span>Очікуваний прибуток/міс</span>
-                <span class="big-num" id="resProfit" style="color: var(--accent);">$0</span>
-            </div>
-            <div class="stat-card payback">
-                <span>Окупність (місяців)</span>
-                <span class="big-num" id="resPayback" style="color: var(--warning);">0</span>
-            </div>
-        </div>
-
-        <h3>Деталізація щомісячних витрат:</h3>
         <table>
-            <thead>
-                <tr>
-                    <th>Стаття витрат</th>
-                    <th>Сума</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                </tbody>
+            <tr><td class="label-cell">Чистий прибуток / міс</td><td class="val-cell" id="outProfit">$0</td></tr>
+            <tr><td class="label-cell">Операційні витрати (OPEX)</td><td class="val-cell" id="outOpex">$0</td></tr>
+            <tr><td class="label-cell">Податкове навантаження</td><td class="val-cell" id="outTax">$0</td></tr>
+            <tr><td class="label-cell">Товарний запас (старт)</td><td class="val-cell" id="outStock">$0</td></tr>
         </table>
     </section>
 
-    <section id="details" class="content-section">
-        <h2>Як працює наша аналітика</h2>
-        <p>Наші розрахунки базуються на середніх показниках галузі за 2025-2026 роки.</p>
-        <div class="calc-box">
-            <h4>1. Паушальний внесок</h4>
-            <p>Це одноразова оплата за право використання бренду та технологій.</p>
-            <h4>2. Операційний прибуток</h4>
-            <p>Ми вираховуємо його як 40% від валового доходу (Revenue) за вирахуванням оренди та податків.</p>
-            <h4>3. Термін окупності</h4>
-            <p>Формула: <b>Загальні інвестиції / Чистий щомісячний прибуток</b>.</p>
-        </div>
+    <section id="steps" class="content-section">
+        <h2>Дорожня карта запуску</h2>
+        <p>Від першого дзвінка до відкриття — ми поруч:</p>
+        
+        <div class="step-item"><div class="step-num">1</div><div><b>Скоринг:</b> Перевірка ваших документів та затвердження фінансового плану.</div></div>
+        <div class="step-item"><div class="step-num">2</div><div><b>Локація:</b> Наш брокер підбирає приміщення з найкращим трафіком.</div></div>
+        <div class="step-item"><div class="step-num">3</div><div><b>Брендинг:</b> Виготовлення зовнішньої реклами та внутрішнє оформлення.</div></div>
+        <div class="step-item"><div class="step-num">4</div><div><b>Персонал:</b> Рекрутинг та стажування вашої команди у нашому центрі.</div></div>
     </section>
 
-    <section id="author" class="content-section">
-        <h2>Картка автора</h2>
-        <div style="background: var(--light); padding: 20px; border-radius: 12px; text-align: center;">
-            <p><strong>Виконавець:</strong> Костюченко Юлія</p>
-            <p><strong>Група:</strong> ФТБ-9</p>
-            <p><strong>Дисципліна:</strong> Веб-технології та веб-дизайн</p>
-            <p>Сайт створено як інтерактивну фінансову модель бізнес-проекту.</p>
+    <section id="dev" class="content-section">
+        <h2>Відомості про розробника</h2>
+        <div class="card-gray" style="text-align:center;">
+            <p style="font-size: 20px; font-weight: bold; margin: 0;">Юлія Костюченко</p>
+            <p>Студентка групи <strong>ФТБ-9</strong></p>
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+            <p>Проект виконано в рамках дисципліни "Веб-дизайн та технології".</p>
+            <p>Всі розрахунки є моделюванням реальних бізнес-процесів за допомогою мови програмування JavaScript.</p>
         </div>
     </section>
 
 </div>
 
 <footer>
-    <p>Юлія Костюченко | ФТБ-9 | 2026</p>
+    <p>Franchise Universe &copy; 2026 | Юлія Костюченко, ФТБ-9</p>
+    <p>Виконано для навчальних цілей</p>
 </footer>
 
 <script>
-    function showPage(id) {
+    function changePage(id) {
         document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
         
-        document.getElementById(id).style.display = 'block';
-        const btnId = 'btn-' + id;
-        if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('active');
+        const activeS = document.getElementById(id);
+        if(activeS) {
+            activeS.style.display = 'block';
+            activeS.classList.add('active');
+        }
+        document.getElementById('btn-' + id).classList.add('active');
         window.scrollTo(0,0);
     }
 
-    function fullCalc() {
-        const type = document.getElementById('fType');
-        const cityMult = parseFloat(document.getElementById('fCity').value);
-        const sel = type.options[type.selectedIndex];
+    function runMegaCalc() {
+        const typeSelect = document.getElementById('mType');
+        const cityCoef = parseFloat(document.getElementById('mCity').value);
+        const sel = typeSelect.options[typeSelect.selectedIndex];
 
-        // Дані з опцій
-        const fee = parseFloat(sel.dataset.fee);
-        const equip = parseFloat(sel.dataset.equip);
+        // Вхідні дані з об'єкта
+        const startInvest = parseFloat(sel.dataset.start);
         const revenue = parseFloat(sel.dataset.rev);
+        const margin = parseFloat(sel.dataset.margin);
 
-        // Розрахунки
-        const rent = 1500 * cityMult;
-        const tax = revenue * 0.05; // 5% податок
-        const staff = (revenue > 5000) ? 1200 : 400; // Витрати на персонал
+        // Формули
+        const rent = 2000 * cityCoef;
+        const staff = (revenue > 8000) ? 2000 : 800;
+        const taxes = revenue * 0.05;
         
-        const startCapital = fee + equip + (rent * 2); // Старт = внесок + техніка + 2 міс оренди
-        const monthlyExpenses = rent + staff + tax + (revenue * 0.3); // оренда + зп + податки + закупівля товару 30%
-        const netProfit = revenue - monthlyExpenses;
+        const totalStart = startInvest + (rent * 2); // Внесок + 2 міс оренди
+        const monthlyOpex = rent + staff + taxes + (revenue * (1 - margin));
+        const netProfit = revenue - monthlyOpex;
         
-        const payback = Math.ceil(startCapital / netProfit);
+        const paybackMonths = (netProfit > 0) ? Math.ceil(totalStart / netProfit) : 0;
 
-        // Виведення в картки
-        document.getElementById('resStart').innerText = '$' + startCapital.toLocaleString();
-        document.getElementById('resProfit').innerText = '$' + Math.round(netProfit).toLocaleString();
-        document.getElementById('resPayback').innerText = (netProfit > 0) ? payback : '---';
+        // Виведення
+        document.getElementById('outStart').innerText = '$' + Math.round(totalStart).toLocaleString();
+        document.getElementById('outProfit').innerText = '$' + Math.round(netProfit).toLocaleString();
+        document.getElementById('outOpex').innerText = '$' + Math.round(monthlyOpex).toLocaleString();
+        document.getElementById('outTax').innerText = '$' + Math.round(taxes).toLocaleString();
+        document.getElementById('outStock').innerText = '$' + Math.round(revenue * 0.3).toLocaleString();
+        document.getElementById('outMonths').innerText = paybackMonths;
 
-        // Оновлення таблиці
-        const table = document.getElementById('tableBody');
-        table.innerHTML = `
-            <tr><td>Оренда приміщення</td><td>$${rent.toLocaleString()}</td></tr>
-            <tr><td>Заробітна плата</td><td>$${staff.toLocaleString()}</td></tr>
-            <tr><td>Податки (5%)</td><td>$${tax.toLocaleString()}</td></tr>
-            <tr><td>Закупівля товару / Сировина</td><td>$${(revenue * 0.3).toLocaleString()}</td></tr>
-            <tr style="font-weight:bold; color:var(--primary)"><td>РАЗОМ ВИТРАТ / МІС</td><td>$${Math.round(monthlyExpenses).toLocaleString()}</td></tr>
-        `;
+        // Анімація прогрес-бару
+        const bar = document.getElementById('pBar');
+        let progress = 100 - (paybackMonths * 3); // Чим менше місяців, тим кращий прогрес
+        if (progress < 10) progress = 10;
+        if (progress > 100) progress = 100;
+        if (netProfit <= 0) progress = 0;
+        bar.style.width = progress + '%';
     }
 
-    window.onload = function() { fullCalc(); };
+    window.onload = function() {
+        runMegaCalc();
+    };
 </script>
 
 </body>
